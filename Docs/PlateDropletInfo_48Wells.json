@@ -1,0 +1,250 @@
+{
+	"PlateDropletInfo": {
+		"Version": 1,
+		"DropletInfo": {
+			"Version": 1,
+			"Wells": [
+				{
+					"WellName": "A01",
+					"WellIndex": 0,
+					"DropletCount": 560
+				},
+				{
+					"WellName": "B01",
+					"WellIndex": 6,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "C01",
+					"WellIndex": 12,
+					"DropletCount": 312
+				},
+				{
+					"WellName": "D01",
+					"WellIndex": 18,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "E01",
+					"WellIndex": 24,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "F01",
+					"WellIndex": 30,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "G01",
+					"WellIndex": 36,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "H01",
+					"WellIndex": 42,
+					"DropletCount": 43
+				},
+				{
+					"WellName": "A02",
+					"WellIndex": 1,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "B02",
+					"WellIndex": 7,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "C02",
+					"WellIndex": 13,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "D02",
+					"WellIndex": 19,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "E02",
+					"WellIndex": 25,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "F02",
+					"WellIndex": 31,
+					"DropletCount": 10
+				},
+				{
+					"WellName": "G02",
+					"WellIndex": 37,
+					"DropletCount": 45
+				},
+				{
+					"WellName": "H02",
+					"WellIndex": 43,
+					"DropletCount": 500
+				},
+				{
+					"WellName": "A03",
+					"WellIndex": 2,
+					"DropletCount": 499
+				},
+				{
+					"WellName": "B03",
+					"WellIndex": 8,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "C03",
+					"WellIndex": 14,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "D03",
+					"WellIndex": 20,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "E03",
+					"WellIndex": 26,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "F03",
+					"WellIndex": 32,
+					"DropletCount": 412
+				},
+				{
+					"WellName": "G03",
+					"WellIndex": 38,
+					"DropletCount": 99
+				},
+				{
+					"WellName": "H03",
+					"WellIndex": 44,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "A04",
+					"WellIndex": 3,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "B04",
+					"WellIndex": 9,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "C04",
+					"WellIndex": 15,
+					"DropletCount": 333
+				},
+				{
+					"WellName": "D04",
+					"WellIndex": 21,
+					"DropletCount": 56
+				},
+				{
+					"WellName": "E04",
+					"WellIndex": 27,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "F04",
+					"WellIndex": 33,
+					"DropletCount": 12
+				},
+				{
+					"WellName": "G04",
+					"WellIndex": 39,
+					"DropletCount": 43
+				},
+				{
+					"WellName": "H04",
+					"WellIndex": 45,
+					"DropletCount": 453
+				},
+				{
+					"WellName": "A05",
+					"WellIndex": 4,
+					"DropletCount": 89
+				},
+				{
+					"WellName": "B05",
+					"WellIndex": 10,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "C05",
+					"WellIndex": 16,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "D05",
+					"WellIndex": 22,
+					"DropletCount": 35
+				},
+				{
+					"WellName": "E05",
+					"WellIndex": 28,
+					"DropletCount": 500
+				},
+				{
+					"WellName": "F05",
+					"WellIndex": 34,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "G05",
+					"WellIndex": 40,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "H05",
+					"WellIndex": 46,
+					"DropletCount": 324
+				},
+				{
+					"WellName": "A06",
+					"WellIndex": 5,
+					"DropletCount": 87
+				},
+				{
+					"WellName": "B06",
+					"WellIndex": 11,
+					"DropletCount": 54
+				},
+				{
+					"WellName": "C06",
+					"WellIndex": 17,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "D06",
+					"WellIndex": 23,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "E06",
+					"WellIndex": 29,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "F06",
+					"WellIndex": 35,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "G06",
+					"WellIndex": 41,
+					"DropletCount": 450
+				},
+				{
+					"WellName": "H06",
+					"WellIndex": 47,
+					"DropletCount": 450
+				}
+			]
+		}
+	}
+}
