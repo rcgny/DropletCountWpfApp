@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropletCountWpf.App", "DropletCountWpfApp\DropletCountWpf.App.csproj", "{5EA13909-B996-41FD-800D-3659DC072D27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropletCountWpfApp.DAL", "DropletCountWpfApp.DAL\DropletCountWpfApp.DAL.csproj", "{E990BC23-8A1D-4884-A478-6958C749C24D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropletCountWpfApp.Model", "DropletCountWpfApp.Model\DropletCountWpfApp.Model.csproj", "{4730B567-8698-4F3D-9063-58E823BCA601}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EA13909-B996-41FD-800D-3659DC072D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA13909-B996-41FD-800D-3659DC072D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA13909-B996-41FD-800D-3659DC072D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA13909-B996-41FD-800D-3659DC072D27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E990BC23-8A1D-4884-A478-6958C749C24D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E990BC23-8A1D-4884-A478-6958C749C24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E990BC23-8A1D-4884-A478-6958C749C24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E990BC23-8A1D-4884-A478-6958C749C24D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4730B567-8698-4F3D-9063-58E823BCA601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4730B567-8698-4F3D-9063-58E823BCA601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4730B567-8698-4F3D-9063-58E823BCA601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4730B567-8698-4F3D-9063-58E823BCA601}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6DAF8E21-243D-4AA5-9603-CB960177075D}
+	EndGlobalSection
+EndGlobal
