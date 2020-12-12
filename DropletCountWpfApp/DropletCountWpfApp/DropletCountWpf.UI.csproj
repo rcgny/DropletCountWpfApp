@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5EA13909-B996-41FD-800D-3659DC072D27}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>DropletCountWpf.App</RootNamespace>
+    <RootNamespace>DropletCountWpf.UI</RootNamespace>
     <AssemblyName>DropletCountWpfApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,12 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\BooleanInvertToVisibilityConverter.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Helpers\ThresholdRangeRule.cs" />
+    <Compile Include="Services\FileDialogService.cs" />
+    <Compile Include="Services\IFileDialogService.cs" />
     <Compile Include="Services\JsonDataService.cs" />
-    <Compile Include="Services\FileIOService.cs" />
     <Compile Include="Services\IJsonDataService.cs" />
-    <Compile Include="Services\IFileIOService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
@@ -108,7 +107,7 @@
       <Version>2.0.5</Version>
     </PackageReference>
     <PackageReference Include="MahApps.Metro">
-      <Version>2.3.4</Version>
+      <Version>2.4.3</Version>
     </PackageReference>
     <PackageReference Include="MvvmLight">
       <Version>5.4.1.1</Version>
@@ -119,13 +118,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\DropletCountWpfApp.DAL\DropletCountWpfApp.DAL.csproj">
+    <ProjectReference Include="..\DropletCountWpfApp.DAL\DropletCountWpf.DAL.csproj">
       <Project>{e990bc23-8a1d-4884-a478-6958c749c24d}</Project>
-      <Name>DropletCountWpfApp.DAL</Name>
+      <Name>DropletCountWpf.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DropletCountWpfApp.Model\DropletCountWpfApp.Model.csproj">
+    <ProjectReference Include="..\DropletCountWpfApp.Model\DropletCountWpf.Model.csproj">
       <Project>{4730b567-8698-4f3d-9063-58e823bca601}</Project>
-      <Name>DropletCountWpfApp.Model</Name>
+      <Name>DropletCountWpf.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

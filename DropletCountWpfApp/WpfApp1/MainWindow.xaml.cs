@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DropletCountWpf.DAL.Repository;
-using DropletCountWpf.Model;
-using DropletCountWpf.Model.Model;
-using MahApps.Metro.Controls;
 
-namespace DropletCountWpf.UI
+namespace WpfApp1
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
-    {    
+    public partial class MainWindow : Window
+    {
         public MainWindow()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
     }
-  
 }
- 

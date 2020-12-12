@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DropletCountWpfApp.Model.Model
+namespace DropletCountWpf.Model.Model
 {
     [DataContract( Name = "DropletInfo")]
     public class DropletInfo
@@ -15,6 +15,6 @@ namespace DropletCountWpfApp.Model.Model
         public int  Version { get; set; }
 
         [DataMember]
-        public IEnumerable<Well> Wells { get; set; }
+        public List<Well> Wells { get; set; }
     }
 }

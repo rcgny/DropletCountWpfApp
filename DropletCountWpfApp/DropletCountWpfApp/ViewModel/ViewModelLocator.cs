@@ -13,13 +13,13 @@
 */
 //#define NEED_TO_USE_DESIGN_LOG_DATA_SERVICE_AT_RUNTIME_FOR_TESTING 
 using CommonServiceLocator;
-using DropletCountWpf.App.Services;
-using DropletCountWpfApp.DAL.Repository;
+using DropletCountWpf.UI.Services;
+using DropletCountWpf.DAL.Repository;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 
 
-namespace DropletCountWpf.App.ViewModel
+namespace DropletCountWpf.UI.ViewModel
 {
     /// <summary>
     /// This class contains static references to all the view models in the

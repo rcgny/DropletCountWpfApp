@@ -1,14 +1,14 @@
-﻿<mah:MetroWindow  x:Class="DropletCountWpf.App.MainWindow"
+﻿<mah:MetroWindow  x:Class="DropletCountWpf.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:local="clr-namespace:DropletCountWpf.App"
-        xmlns:conv="clr-namespace:DropletCountWpf.App.Converters"       
+        xmlns:conv="clr-namespace:DropletCountWpf.UI.Converters" 
+        xmlns:helpers="clr-namespace:DropletCountWpf.UI.Helpers"
         mc:Ignorable="d"
         Title="Plate Dropelt Data Display" 
-        Height="850" 
+        Height="550" 
         Width="645"
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"           
         ResizeMode="CanResizeWithGrip"
@@ -17,10 +17,22 @@
 
     <mah:MetroWindow.Resources>
         <conv:DropletCountToBrushConverter x:Key="DropletCountToBrushConverter"/>
-        <conv:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <conv:BooleanInvertToVisibilityConverter x:Key="BooleanInvertToVisibilityConverter"/>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" FontSize="20">!</TextBlock>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
 
-
+        <Style x:Key="TextBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+              Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                              Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.DataContext>
@@ -30,10 +42,10 @@
     <Grid>
         <!--<Button Width="200" Height="150"   >MY BUTTON</Button>-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="6*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="230"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -49,7 +61,7 @@
             <Button x:Name="FileSelectorButton" 
                     Width="125"
                     Height="30"
-                    Command="{Binding OpenFileCommand}">Select Platelet Data</Button>
+                    Command="{Binding ProcessSelectedFileCommand}">Select Platelet Data</Button>
             <TextBlock Text="File Selected:"
                        VerticalAlignment="Center"
                        Margin="15,0,10,0"/>
@@ -76,23 +88,25 @@
                         Margin="0">
                 <TextBlock Text="Total Well Count low Droplets:"
                             Margin="0,0,5,3"/>
-                <TextBlock Text="Binding of low count"/>                
+                <TextBlock Text="{Binding TotalLowDropletCount}"/>                
             </StackPanel>            
         </StackPanel>
-        <!--Data Grids for Platelet Drop Results-->
-        <!--96 Well Count-->      
-            <DataGrid x:Name="DropletCount96DataGrid"
-                      ItemsSource="{Binding WellsForDataGrid96}"
+        <!--Data Grid for Platelet Drop Results-->
+        <!--Visibility="{Binding IsGrid96Visible, Converter={StaticResource BooleanToVisibilityConverter}}"-->
+        <!--<Viewbox  Grid.Row="2"
+                  Grid.Column="1">-->
+        <DataGrid x:Name="DropletCountDataGrid"
+                      ItemsSource="{Binding WellsTable}"
                       Grid.Row="2"
-                      Grid.Column="1" 
+                      Grid.Column="1"
                       BorderBrush="DodgerBlue"
                       BorderThickness="2"
                       AutoGenerateColumns="True"
                       CanUserAddRows="False"   
                       IsReadOnly="True"
                       GridLinesVisibility="All"
-                      Visibility="{Binding IsGrid96Visible, Converter={StaticResource BooleanToVisibilityConverter}}">
-
+                      ColumnWidth="*"
+                       >
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
                         <Style.Setters>
@@ -107,35 +121,8 @@
                         </Style.Setters>
                     </Style>
                 </DataGrid.CellStyle>
-            </DataGrid>       
-        <!--48 Well Count-->
-        <DataGrid x:Name="DropletCount48DataGrid"
-                      ItemsSource="{Binding WellsForDataGrid48}"
-                      Grid.Row="2"
-                      Grid.Column="1" 
-                      BorderBrush="DodgerBlue"
-                      BorderThickness="2"
-                      AutoGenerateColumns="True"
-                      CanUserAddRows="False"   
-                      IsReadOnly="True"
-                      GridLinesVisibility="All"
-                      Visibility="{Binding IsGrid96Visible, Converter={StaticResource BooleanInvertToVisibilityConverter}}">
-
-            <DataGrid.CellStyle>
-                <Style TargetType="{x:Type DataGridCell}">
-                    <Style.Setters>
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <MultiBinding Converter="{StaticResource DropletCountToBrushConverter}" ConverterParameter ="500">
-                                    <Binding Path="Content.Text" RelativeSource="{RelativeSource Self}" />
-                                    <Binding Path="Column.Header" RelativeSource="{RelativeSource Self}" />
-                                </MultiBinding>
-                            </Setter.Value>
-                        </Setter>
-                    </Style.Setters>
-                </Style>
-            </DataGrid.CellStyle>
         </DataGrid>
+        <!--</Viewbox>-->
 
         <StackPanel x:Name="ThresholdStackPanel"
                     Orientation="Vertical"                  
@@ -147,12 +134,22 @@
                        Margin="0,0,0,5"/>
             <StackPanel Orientation="Horizontal"                        
                         Margin="0">
-                <TextBox x:Name="ThresholdTextBox"
-                         Text="{Binding DropletThreshold, Mode=TwoWay}"
+                <TextBox x:Name="ThresholdTextBox"                        
                          VerticalAlignment="Center"
+                         Style="{StaticResource TextBoxInError}"
                          Width="50"                         
-                         Margin="0,0,10,0" />
-                <Button x:Name="UpdateThresholdButton"
+                         Margin="0,0,10,0" 
+                         Validation.ErrorTemplate="{StaticResource ValidationTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="DropletThreshold" Mode="TwoWay"
+                                 UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <helpers:ThresholdRangeRule Min="0" Max="500"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    </TextBox>
+                    <Button x:Name="UpdateThresholdButton"
                         Width="80" 
                         Height="30"
                         Command="{Binding UpdateThresholdCommand}"

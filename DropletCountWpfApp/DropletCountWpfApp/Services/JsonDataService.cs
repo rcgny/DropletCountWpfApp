@@ -1,25 +1,21 @@
-﻿using DropletCountWpf.App.Model;
-using DropletCountWpfApp.DAL.Repository;
-using DropletCountWpfApp.Model;
-using DropletCountWpfApp.Model.Model;
+﻿using DropletCountWpf.DAL.Repository;
+using DropletCountWpf.Model;
+using DropletCountWpf.Model.Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DropletCountWpf.App.Services
+namespace DropletCountWpf.UI.Services
 {
-    public class JsonDataService: IJsonDataService
+    public class JsonDataService : IJsonDataService
     {
         #region Data Fields
         IJsonRepository _repository;
-        private DropletBin _dropletBin;
         private string _defaultFilePath = @"C:\DropletData\PlateDropletInfo.json";
         private List<Well> _wells = new List<Well>();
-        private ObservableCollection<WellForDataGrid96> _wellsForDataGrid96 = new ObservableCollection<WellForDataGrid96>();
-        private ObservableCollection<WellForDataGrid48> _wellsForDataGrid48 = new ObservableCollection<WellForDataGrid48>();
+        private const int NumberOfRowsForTable = 8;  // Per requirements doc every table displaying droplet count from JSON 
+                                                     // will be organized as 8 x xx
         #endregion
 
         #region Properties
@@ -27,10 +23,10 @@ namespace DropletCountWpf.App.Services
 
 
         #region Ctor
-     
+
         public JsonDataService(IJsonRepository repository)
         {
-            _repository = repository;           
+            _repository = repository;
         }
 
 
@@ -41,114 +37,91 @@ namespace DropletCountWpf.App.Services
 
         public void SetFilePath(string testDataFilePath)
         {
-            if(!string.IsNullOrEmpty(testDataFilePath))
+            if (!string.IsNullOrEmpty(testDataFilePath))
             {
                 _defaultFilePath = testDataFilePath;
-            }                
+            }
+        }
+
+        public DropletBin GetDropletBinFromJson()
+        {
+            return _repository.GetDropletBin(_defaultFilePath);
         }
 
 
-        public ObservableCollection<WellForDataGrid96> GetCollection96ForDataGrid()
+        public DataTable GetDataTableFromJson()
         {
+            DropletBin dropletBin = null;
+            List<Well> wells = null;  // Rep. the array of droplet counts.
+            DataTable table = null;
 
             try
             {
-                var DropletBin = GetDropletBin(_defaultFilePath);                
+                // Get the deserialized JSON.
+                dropletBin = GetDropletBinFromJson();
 
-                ClearCollections();
-
-                foreach (var well in DropletBin.PlateDropletInfo.DropletInfo.Wells)
+                // Need to sort the JSON droplet count array, so we put them in a list
+                foreach (var well in dropletBin.PlateDropletInfo.DropletInfo.Wells)
                 {
                     _wells.Add(well);
                 }
+                _wells.Sort(); // See Well class for property that we sort on: WellIndex           
 
-                // See Well class for property that we sort on: WellIndex
-                _wells.Sort();
+                // Populate an in memory data table for easy display by consuming dataGrid
+                table = new DataTable();
 
-                string[] strArray = { "A", "B", "C", "D", "E", "F", "G", "H" };
-                int index = 0;
-                for (int i = 0; i < 8; i++)
+
+                // Setup columns
+                var columnCount = _wells.Count / NumberOfRowsForTable;
+                string[] columnNames = new string[columnCount + 1];
+
+                columnNames[0] = "-";
+                for (int i = 1; i < columnCount + 1; i++)
                 {
-                    _wellsForDataGrid96.Add(new WellForDataGrid96()
-                    {
-                        Bin = strArray[i],
-                        O1 = _wells[index++].DropletCount,
-                        O2 = _wells[index++].DropletCount,
-                        O3 = _wells[index++].DropletCount,
-                        O4 = _wells[index++].DropletCount,
-                        O5 = _wells[index++].DropletCount,
-                        O6 = _wells[index++].DropletCount,
-                        O7 = _wells[index++].DropletCount,
-                        O8 = _wells[index++].DropletCount,
-                        O9 = _wells[index++].DropletCount,
-                        O10 = _wells[index++].DropletCount,
-                        O11 = _wells[index++].DropletCount,
-                        O12 = _wells[index++].DropletCount
-                    });
+                    columnNames[i] = i.ToString();
                 }
-            }
-            catch (Exception ex)
-            {
-                //TODO: Logging
-            }
 
-            return _wellsForDataGrid96;
-        }
+                foreach (var cn in columnNames)
+                    table.Columns.Add(cn, typeof(string));
 
-        public ObservableCollection<WellForDataGrid48> GetCollection48ForDataGrid()
-        {
+                // Organize the wells array into 8 x xx rows
+                var rows = _wells.Select(i => i.DropletCount).ToArray();
 
-            try
-            {
-                var DropletBin = GetDropletBin(_defaultFilePath);
+                // This list is from the WellNames of each well array item. See the original JSON.
+                List<char> ids = new List<char>() { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+                int itemsPerRow = 0;
+                for (int i = 0; i < NumberOfRowsForTable; i++)
+                {
+                    object[] values = new object[columnNames.Length];
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        if (j == 0) // add Id
+                        {
+                            values[j] = ids.First<char>();
+                            ids.RemoveAt(j);
+                        }
+                        values[j + 1] = rows[j + itemsPerRow];
+                    }
+                    itemsPerRow += columnCount;
+                    table.Rows.Add(values);
+                }
                 ClearCollections();
-
-                foreach (var well in DropletBin.PlateDropletInfo.DropletInfo.Wells)
-                {
-                    _wells.Add(well);
-                }
-
-                // See Well class for property that we sort on: WellIndex
-                _wells.Sort();
-
-                string[] strArray = { "A", "B", "C", "D", "E", "F", "G", "H" };
-                int index = 0;
-
-                for (int i = 0; i < 8; i++)
-                {
-                    _wellsForDataGrid48.Add(new WellForDataGrid48()
-                    {
-                        Bin = strArray[i],
-                        O1 = _wells[index++].DropletCount,
-                        O2 = _wells[index++].DropletCount,
-                        O3 = _wells[index++].DropletCount,
-                        O4 = _wells[index++].DropletCount,
-                        O5 = _wells[index++].DropletCount,
-                        O6 = _wells[index++].DropletCount
-                    });
-                }
             }
             catch (Exception ex)
             {
-                //TODO: Logging
+                //todo: Logging
             }
-
-            return _wellsForDataGrid48;
+            return table;
         }
 
         #endregion
 
         #region Helpers
-        private DropletBin GetDropletBin(string filePath)
-        {
-            return _repository.GetDropletBin(filePath);
-        }
+
 
         private void ClearCollections()
         {
             _wells.Clear();
-            _wellsForDataGrid96.Clear();            
-            _wellsForDataGrid48.Clear();
         }
 
 

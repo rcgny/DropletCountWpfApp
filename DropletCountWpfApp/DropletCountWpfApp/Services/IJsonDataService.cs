@@ -1,12 +1,7 @@
-﻿using DropletCountWpf.App.Model;
-using DropletCountWpfApp.Model.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using DropletCountWpf.Model.Model;
+using System.Data;
 
-namespace DropletCountWpf.App.Services
+namespace DropletCountWpf.UI.Services
 {
     public interface IJsonDataService
     {
@@ -15,16 +10,20 @@ namespace DropletCountWpf.App.Services
         /// </summary>
         /// <param name="testDataFilePath"></param>
         void SetFilePath(string testDataFilePath);
-        /// <summary>
-        /// Provides the data structure with droplet count values for filling the datagrid
-        /// </summary>
-        /// <returns></returns>
-        ObservableCollection<WellForDataGrid96> GetCollection96ForDataGrid();
 
         /// <summary>
-        /// Provides the data structure with droplet count values for filling the datagrid
-        /// </summary>
-        /// <returns></returns>
-        ObservableCollection<WellForDataGrid48> GetCollection48ForDataGrid();
+        /// This returns the deserialized JSON object
+        /// </summary>        
+        /// <returns>DropletBin</returns>
+        DropletBin GetDropletBinFromJson();
+
+        /// <summary>
+        /// Converts the deserialized JSON to an in memory data table
+        /// for DataGrid.  This method can handle any size JSON wells
+        /// array that is a multiple of 8 x n.  For our testing we have 
+        /// 2 JSON files with 48 and 96 well counts.
+        /// </summary        
+        /// <returns>DataTable</returns>
+        DataTable GetDataTableFromJson();
     }
 }

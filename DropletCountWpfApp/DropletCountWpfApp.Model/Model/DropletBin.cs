@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DropletCountWpfApp.Model.Model
+namespace DropletCountWpf.Model.Model
 {
     [DataContract(Name = "DropletBin")]
     public class DropletBin

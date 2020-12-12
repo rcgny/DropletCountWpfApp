@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DropletCountWpfApp.Model
+namespace DropletCountWpf.Model
 {
     [DataContract(Name = "Well")]
     public class Well : IComparable<Well>  // Adding this IF to enable sorting based on WellIndex, when Well is added to a List<Well>.

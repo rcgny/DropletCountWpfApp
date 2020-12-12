@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace DropletCountWpfApp
+namespace DropletCountWpf.UI
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -18,28 +18,16 @@ namespace DropletCountWpfApp
     {
 
         private void Application_Startup(object sender, StartupEventArgs e)
-        {   // Open Single file by association support
-            Debug.Print("LogExp-Application_Startup: arg count: {0}", e.Args.Length);
-            if (e.Args.Length == 1)
-            {
-                FileInfo file = new FileInfo(e.Args[0]);
-                if (file.Exists)
-                {
-                    Application.Current.Properties["FilePathForSingleFile"] = file.FullName;
-                    Debug.Print("LogExp-Application_Startup: filename: {0}", file.FullName);
-                }
-                else
-                {
-                    Application.Current.Properties["FilePathForSingleFile"] = null;
-                }
-            }
+        {  
+            Debug.Print("Application_Startup");
+            
             // To trap unhandled exceptions at different levels:
             // 1. AppDomain.CurrentDomain.UnhandledException:   From all threads in the AppDomain.
             // 2. Dispatcher.UnhandledException:  From a single specific UI dispatcher thread.
             // 3. Application.Current.DispatcherUnhandledException:  From the main UI dispatcher thread in your WPF application.
             // 4. TaskScheduler.UnobservedTaskException:  from within each AppDomain that uses a task scheduler for asynchronous operations.
 
-            var currentApplication = System.Windows.Application.Current;
+            var currentApplication = Current;
             currentApplication.DispatcherUnhandledException += CurrentApplication_DispatcherUnhandledException;
             var appDomain = AppDomain.CurrentDomain;
             appDomain.UnhandledException += AppDomainOnUnhandledException;
